@@ -413,6 +413,20 @@
                   s)
           s)))))
 
+(defvar *scala-reserved-words*
+  '("def" "forSome" "implicit" "in" "lazy" "match" "new" "object" "override" "sealed" "trait" "type" "val" "var" "with" "yield"))
+
+(define-coloring-type :scala "Scala"
+  :parent :java
+  :formatters
+  ((:word-ish
+    (lambda (type s)
+      (declare (ignore type))
+      (if (member s *scala-reserved-words* :test #'string=)
+          (format nil "<span class=\"symbol\">~A</span>"
+                  s)
+          s)))))
+
 (let ((terminate-next nil))
   (define-coloring-type :objective-c "Objective C"
     :transitions
